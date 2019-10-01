@@ -1,0 +1,289 @@
+<!-- extiende de index_base.html todo la personalizacion de base -->
+{% extends 'Base/index_base.html'%}
+<!-- se edita el titulo, de la paguina web  -->
+{% block title %}
+<title>Registrarce</title>
+{% endblock %}
+<!-- aqui va el contenido del registro -->
+{% block content %}
+<script type="text/javascript">
+
+
+
+function cambio(){
+    var cosa;
+    var test;
+
+    test =  document.getElementById('opcion_Registro')
+    cosa = test.options[test.selectedIndex].value
+
+     
+        if(cosa == 'Turista'){
+            document.getElementById('turista_reg').style.display = "block";
+            document.getElementById('proveedor_reg').style.display = "none";
+        }else if(cosa == 'Proveedor_Servicios'){
+            document.getElementById('turista_reg').style.display = "none";
+            document.getElementById('proveedor_reg').style.display = "block";   
+        }else if(cosa== 0){
+            document.getElementById('turista_reg').style.display = "none";
+            document.getElementById('proveedor_reg').style.display = "none";
+        }
+
+   
+}
+
+</script>
+<style type="text/css">
+
+    .centrar{
+		position: absolute;
+		/*nos posicionamos en el centro del navegador*/
+		top:50%;
+		left:50%;
+		/*determinamos una anchura*/
+		width:500px;
+		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+		margin-left:-250px;
+		/*determinamos una altura*/
+		height:560px;
+		/*indicamos que el margen superior, es la mitad de la altura*/
+		margin-top:-150px;
+     
+        padding:5px;
+        
+        background: -moz-linear-gradient(top, rgba(69,72,77,0) 62%, rgba(69,72,77,0) 63%, rgba(69,72,77,0) 69%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+    }
+    
+    * {
+  box-sizing: border-box;
+}
+
+input[type=email], select, textarea, input[type=password], input[type=text] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container_table {
+  border-radius: 5px;
+  background: -moz-linear-gradient(top, rgba(69,72,77,0.6) 60%, rgba(69,72,77,0.62) 63%, rgba(69,72,77,0.66) 69%, rgba(0,0,0,0.89) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9945484d', endColorstr='#e3000000',GradientType=0 ); /* IE6-9 */
+
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+
+</style>
+<div class="centrar">
+    <!--   opciones  -->
+<div class="container_table" >
+    <h4 style="text-align: center;">Seleccione una opcion de registro</h4>
+    <form name="formularioslect" action="#">
+        <select name="opcion_Registro" id="opcion_Registro" onchange="cambio()">
+            <option value="0">---Seleccione---</option>
+            <option value="Turista">Turista</option>
+            <option value="Proveedor_Servicios">Proveedor Servicios</option>
+        </select>
+    </form>
+</div>
+<!--   registro de turistas   -->  
+<div class="container_table" style="display: none;" id="turista_reg">
+        <form  method="POST">
+            {% csrf_token %}
+            <div class="row">
+                    <div class="col-25">
+                      <label for="fname">Nombre:</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="fname" name="nombre_user" placeholder="Ingres su Nombre.." required="True">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="lapellido">Apellido:</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="lapellido" name="Apellido_user" placeholder="Ingrese su Apellido.." required="True">
+                    </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-25">
+                          <label for="lcorreo">Correo:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lcorreo" name="Correo_user" placeholder="Ingrese su Correo.." required="True">
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-25">
+                          <label for="lContra">Contraseña:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="password" id="lContra" name="Contra_user" placeholder="Ingrese su Contraseña.." required="True">
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-25">
+                          <label for="lTelefono">Telefono:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lTelefono" name="Telefono_user" placeholder="Ingrese su Telefono.." required="True">
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-25">
+                          <label for="lEdad">Edad:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lEdad" name="Edad_user" placeholder="Ingrese su Edad.." required="True">
+                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="Estado_Civil">Estado Civil:</label>
+                    </div>
+                    <div class="col-75">
+                      <select id="Estado_Civil" name="Estado_Civil" required="True">
+                        <option value="0">---Seleccione---</option>
+                        <option value="Soltero">Soltero</option>
+                        <option value="Casado">Casado</option>
+                        <option value="Union Libre">Union Libre</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <input type="submit" value="Registrarce">
+                  </div>
+        </form>
+     </div>
+<!--   registro de proveedores   -->
+    <div class="container_table" style="display: none;"  id="proveedor_reg">
+            <form  method="POST">
+                {% csrf_token %}
+                <div class="row">
+                        <div class="col-25">
+                          <label for="lnit">NIT:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lnit" name="lnit" placeholder="Ingrese su NIT..">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-25">
+                          <label for="lrazonsocial">Razon Social:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lrazonsocial" name="lrazonsocial" placeholder="Ingrese su Razon Social..">
+                        </div>
+                      </div>
+                      <div class="row">
+                            <div class="col-25">
+                              <label for="lMunicipio">Municipio:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="text" id="lMunicipio" name="lMunicipio" placeholder="Ingrese su Municipio..">
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-25">
+                              <label for="ltipo_servicio">Tipo de Servicio:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="text" id="ltipo_servicio" name="ltipo_servicio" placeholder="Ingrese su Tipo de servicio..">
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-25">
+                              <label for="lDirección">Dirección:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="text" id="lDirección" name="lDirección" placeholder="Ingrese su Tipo de Dirección..">
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-25">
+                              <label for="lTelefono">Telefono:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="text" id="lTelefono" name="lTelefono" placeholder="Ingrese su Tipo de Telefono..">
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-25">
+                              <label for="lCorreo">Correo:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="text" id="lCorreo" name="lCorreo" placeholder="Ingrese su Tipo de Correo..">
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-25">
+                              <label for="lcontrase">Contraseña:</label>
+                            </div>
+                            <div class="col-75">
+                              <input type="password" id="lcontrase" name="lcontrase" placeholder="Ingrese su Tipo de Contraseña..">
+                            </div>
+                       </div>
+                      
+                      <div class="row">
+                        <input type="submit" value="Registrarce">
+                      </div>
+            </form>
+      </div>
+    </div>
+{% endblock %}

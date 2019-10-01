@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- carga los metodos css, js etc.. de la carpeta static -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Base/css/index_css.css' %}" type="text/css">
+    <link rel="icon" href="{% static 'Base/img/logo.png' %}" type="image/png">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'Base/Js/index_js.js' %}"></script>
+    <script type="text/javascript" src="{% static 'Base/Js/jssor.slider-27.5.0.min.js' %}"></script>
+
+    {% block title %}
+    <title>Inicio</title>
+    {% endblock %}
+</head>
+
+<body>
+    <header class="header">
+        <div class="container logo-nav-container">
+
+            <div class="logo"><img src="{% static 'Base/img/logo.png' %}" width="60" height="60"></div>
+            <nav class="navigation">
+                <ul>
+                        <li><a href="/login/">Login</a></li>
+                        <li><a href="/registrarce/">Registrarce</a></li> 
+                        <li><a href="/contactenos_user/">Contactenos</a></li>
+                        <li><a href="/acerca_de/">Acerca de</a></li>
+                </ul>
+                s
+            </nav>
+
+        </div>
+
+    </header>
+
+    <div class="superior"><img src="{% static 'Base/img/top.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
+    <div class="inferior"><img src="{% static 'Base/img/bottom.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
+    <main class="main">
+            <di class="container">
+                    {% block content %} 
+                    {% endblock %}
+            </di>
+    </main>
+        
+    
+
+
+</body>
+
+</html>

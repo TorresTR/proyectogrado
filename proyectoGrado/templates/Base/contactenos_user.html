@@ -1,0 +1,145 @@
+<!-- extiende de index_base.html todo la personalizacion de base -->
+{% extends 'Base/index_base.html'%}
+<!-- se edita el titulo, de la paguina web  -->
+{% block title %}
+<title>Contactenos</title>
+{% endblock %}
+<!-- aqui va el contenido del contactenos -->
+{% block content %}
+
+<script type="text/javascript">
+
+</script>
+    <style type="text/css">
+    
+        .centrar{
+            position: absolute;
+            /*nos posicionamos en el centro del navegador*/
+            top:50%;
+            left:50%;
+            /*determinamos una anchura*/
+            width:500px;
+            /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+            margin-left:-250px;
+            /*determinamos una altura*/
+            height:560px;
+            /*indicamos que el margen superior, es la mitad de la altura*/
+            margin-top:-150px;
+         
+            padding:5px;
+            
+            background: -moz-linear-gradient(top, rgba(69,72,77,0) 62%, rgba(69,72,77,0) 63%, rgba(69,72,77,0) 69%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+    
+        }
+        
+        * {
+      box-sizing: border-box;
+    }
+    
+    input[type=email], select, textarea, input[type=password], input[type=text] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+    
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    .container_table {
+      border-radius: 5px;
+      background: -moz-linear-gradient(top, rgba(69,72,77,0.6) 60%, rgba(69,72,77,0.62) 63%, rgba(69,72,77,0.66) 69%, rgba(0,0,0,0.89) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9945484d', endColorstr='#e3000000',GradientType=0 ); /* IE6-9 */
+    
+      padding: 20px;
+    }
+    
+    .col-25 {
+      float: left;
+      width: 25%;
+      margin-top: 6px;
+    }
+    
+    .col-75 {
+      float: left;
+      width: 75%;
+      margin-top: 6px;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+    
+    
+    </style>
+
+
+<div class="centrar">
+
+<!--   registro de contactenos   -->  
+<div class="container_table" style="display: block;" id="contactenos_table">
+        <form  method="POST">
+            {% csrf_token %}
+            
+                 
+                  <div class="row">
+                        <div class="col-25">
+                          <label for="lcorreo_contac">Correo:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lcorreo_contac" name="Correo_user_contac" placeholder="Ingrese su Correo.." required="True">
+                        </div>
+                  </div>
+                 
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="lsugerencia">Sugerencia:</label>
+                    </div>
+                    <div class="col-75">
+                      <textarea type="text" id="lsugerencia" name="sugerencia_user_contac" placeholder="Ingrese su sugerencia.." required="True"></textarea>
+                    </div>
+              </div>
+             
+                  
+                 
+                  <div class="row">
+                    <input type="submit" value="Enviar Sugerencia">
+                  </div>
+        </form>
+     </div>
+
+    </div>
+{% endblock %}
