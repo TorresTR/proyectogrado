@@ -7,8 +7,9 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^login/', login),
     url(r'^acerca_de/', acerca_de),
-    url(r'^registrarce/', registrarce),
+    url(r'^registrarse/', registrarse),
     url(r'^contactenos_user/', contactenos_user),
-    
+    url(r'^perfil/', perfil),
+    url(r'^usuarios/',turista_user),
 
 ]

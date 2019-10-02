@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,10 +19,26 @@
 </head>
 
 <body>
+
+        <header class="header">
+                <div class="container logo-nav-container">
+        
+                    <div class="logo"><a href="/usuarios/"><img src="{% static 'Base/img/logo.png' %}" onsub width="60" height="60"></a></div>
+                    <nav class="navigation">
+                        <ul>
+                                <li><a href="/perfil/">Perfil</a></li>
+                                <li><a href="/reservas/">Reservas</a></li> 
+                                <li><a href="/recomendaciones/">Recomendaciones</a></li>
+                        </ul>
+                        
+                    </nav>
+        
+                </div>
+        
+            </header>
     
         <div class="superior"><img src="{% static 'Base/img/top.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
         <div class="inferior"><img src="{% static 'Base/img/bottom.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
        
-    <h1>soy un turista</h1>
 </body>
 </html>

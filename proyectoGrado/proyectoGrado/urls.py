@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^login/', include('villeta.urls')),
     url(r'^acerca_de/', include('villeta.urls')),
     url(r'^contactenos_user/', include('villeta.urls')),
-    url(r'^registrarce/', include('villeta.urls')),
-    
+    url(r'^registrarse/', include('villeta.urls')),
+    url(r'^perfil/', include('villeta.urls')),
+    url(r'^usuarios/', include('villeta.urls')),
 ]

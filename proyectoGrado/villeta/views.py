@@ -48,7 +48,7 @@ def acerca_de(request):
     return render(request, 'Base/acerca_de.html')
 
 
-def registrarce(request):
+def registrarse(request):
     if request.method == 'POST':
        
             
@@ -91,8 +91,14 @@ def registrarce(request):
     return render(request, 'Base/registrarce.html')
 
 def turista_user(request):
-
-    return render(request, 'usuario/usuarios.html')
+    if  request.method == 'POST':
+        if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
+            return render(request, 'usuario/usuarios.html')
+        else:
+            return render(request, 'Base/index.html')
+    else:
+        return render(request, 'Base/index.html')
+    return render(request, 'Base/index.html')
 
 def proveedor_user(request):
 
@@ -104,3 +110,13 @@ def admon_user(request):
 
 def view_404(request,*arg,**kwargs):
      return render(request, 'Base/404.html')
+
+def perfil(request):
+    if  request.method == 'POST':
+        if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
+            return render(request, 'usuario/perfil.html')
+        else:
+            return render(request, 'Base/index.html')
+    else:
+        return render(request, 'Base/index.html')
+    return render(request, 'Base/index.html')
