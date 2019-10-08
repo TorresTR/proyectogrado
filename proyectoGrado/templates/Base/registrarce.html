@@ -129,6 +129,13 @@ input[type=submit]:hover {
 
 </style>
 <div class="centrar">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{message}}</div>
+    {% endfor %}
+  {% endif %}
+
+  {{ form }}
     <!--   opciones  -->
 <div class="container_table" >
     <h4 style="text-align: center;">Seleccione una opcion de registro</h4>
@@ -178,10 +185,10 @@ input[type=submit]:hover {
                   </div>
                   <div class="row">
                         <div class="col-25">
-                          <label for="lTelefono">Telefono:</label>
+                          <label for="lTelefono_user">Telefono:</label>
                         </div>
                         <div class="col-75">
-                          <input type="text" id="lTelefono" name="Telefono_user" placeholder="Ingrese su Telefono.." required="True">
+                          <input type="text" id="lTelefono_user" name="Telefono_user" placeholder="Ingrese su Telefono.." required="True">
                         </div>
                   </div>
                   <div class="row">

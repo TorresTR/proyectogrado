@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
   
     <meta charset="UTF-8">
@@ -29,6 +32,7 @@
                                 <li><a href="/perfil/">Perfil</a></li>
                                 <li><a href="/reservas/">Reservas</a></li> 
                                 <li><a href="/recomendaciones/">Recomendaciones</a></li>
+                                <li><a href="{% url 'logout'%}">Logout</a></li>
                         </ul>
                         
                     </nav>
@@ -41,4 +45,5 @@
         <div class="inferior"><img src="{% static 'Base/img/bottom.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
        
 </body>
+
 </html>

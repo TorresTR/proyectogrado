@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse ,HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import * 
+from django.contrib.auth import * 
 from .models import * 
 
 def index(request):
@@ -8,13 +9,14 @@ def index(request):
 
 
 def login(request): 
+    
     if request.method == 'POST':
-        
         if request.POST.get('N_correo') and request.POST.get('N_contrasena'):
-            
-
             if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
-                return render(request, 'usuario/usuarios.html')
+               response = HttpResponseRedirect('/usuarios/')
+               response.set_cookie('token', request.POST.get('csrfmiddlewaretoken'))
+               return response
+              
             elif proveedor.objects.filter(correo=request.POST.get('N_correo')) and proveedor.objects.filter(contrasena=request.POST.get('N_contrasena')):
                 return render(request, 'prestador_servicios/prov_servicios.html')
             elif administrador.objects.filter(correo=request.POST.get('N_correo')) and administrador.objects.filter(contrasena=request.POST.get('N_contrasena')):
@@ -64,7 +66,7 @@ def registrarse(request):
                 tu.contrasena = request.POST.get('Contra_user')
 
                 tu.save()
-
+                
                 
             elif request.POST.get('lnit') and request.POST.get('lrazonsocial') and request.POST.get('lMunicipio') and request.POST.get('ltipo_servicio') and request.POST.get('lDirección') and request.POST.get('lTelefono') and request.POST.get('lCorreo') and request.POST.get('lcontrase'):
 
@@ -91,14 +93,11 @@ def registrarse(request):
     return render(request, 'Base/registrarce.html')
 
 def turista_user(request):
-    if  request.method == 'POST':
-        if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
-            return render(request, 'usuario/usuarios.html')
-        else:
-            return render(request, 'Base/index.html')
+    if request.COOKIES.get('token'):
+        return render(request, 'usuario/usuarios.html')
     else:
-        return render(request, 'Base/index.html')
-    return render(request, 'Base/index.html')
+        return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('/login/')
 
 def proveedor_user(request):
 
@@ -112,11 +111,18 @@ def view_404(request,*arg,**kwargs):
      return render(request, 'Base/404.html')
 
 def perfil(request):
-    if  request.method == 'POST':
-        if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
-            return render(request, 'usuario/perfil.html')
-        else:
-            return render(request, 'Base/index.html')
+ if request.COOKIES.get('token'):
+    return render(request, 'usuario/perfil.html')
+ else:
+   return HttpResponseRedirect('/login/')
+ return HttpResponseRedirect('/login/')
+
+def logout(request):
+    if request.COOKIES.get('token'):
+        response = render(request, 'Base/index.html')
+        response.delete_cookie('token')
+        return response
     else:
-        return render(request, 'Base/index.html')
-    return render(request, 'Base/index.html')
+        return render(request,'Base/index.html')
+
+    return render(request,'Base/index.html')

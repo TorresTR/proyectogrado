@@ -15,16 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include, handler404
+from django.contrib.auth import views as auth_views
+from villeta import views as user_views
 
 handler404='villeta.views.view_404'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('villeta.urls')),
-    url(r'^login/', include('villeta.urls')),
+    url(r'^', include('villeta.urls'), name='home'),
+    url(r'^login/', auth_views.LoginView.as_view(template_name = 'Base/login.html'), name='login'),
+    url(r'^logout/', auth_views.LogoutView.as_view(template_name = 'Base/logout.html'), name='logout'),
     url(r'^acerca_de/', include('villeta.urls')),
     url(r'^contactenos_user/', include('villeta.urls')),
-    url(r'^registrarse/', include('villeta.urls')),
+    url(r'^registrarse/', user_views.registrarse, name='registrarse'),
     url(r'^perfil/', include('villeta.urls')),
     url(r'^usuarios/', include('villeta.urls')),
+    url(r'^logout/', user_views.logout, name='logout'),
 ]
