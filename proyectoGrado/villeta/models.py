@@ -9,7 +9,7 @@ class turista(models.Model):
     telefono = models.TextField(max_length= 50)
     edad = models.IntegerField(null=True)
     estado_civi=(('Soltero','Soltero'),('Casado','Casado'),('Union libre','UnionLibre'))
-    estado_Civil = models.TextField(choices= estado_civi, default= 'Soltero')
+    estado_Civil = models.TextField(choices= estado_civi, default= 'Casado')
     gustos = models.TextField(max_length= 200)
     limitaciones = models.TextField(max_length= 200)
     ocupacion = models.TextField(max_length= 200)

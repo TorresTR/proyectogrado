@@ -2,6 +2,7 @@ from django.http import HttpResponse ,HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import * 
 from django.contrib.auth import * 
+from django.template import loader
 from .models import * 
 
 def index(request):
@@ -15,6 +16,7 @@ def login(request):
             if turista.objects.filter(correo=request.POST.get('N_correo')) and turista.objects.filter(contrasena=request.POST.get('N_contrasena')):
                response = HttpResponseRedirect('/usuarios/')
                response.set_cookie('token', request.POST.get('csrfmiddlewaretoken'))
+               response.set_cookie('correo', request.POST.get('N_correo'))
                return response
               
             elif proveedor.objects.filter(correo=request.POST.get('N_correo')) and proveedor.objects.filter(contrasena=request.POST.get('N_contrasena')):
@@ -111,18 +113,42 @@ def view_404(request,*arg,**kwargs):
      return render(request, 'Base/404.html')
 
 def perfil(request):
- if request.COOKIES.get('token'):
-    return render(request, 'usuario/perfil.html')
- else:
-   return HttpResponseRedirect('/login/')
- return HttpResponseRedirect('/login/')
+    if request.COOKIES.get('token'):
+        correo_user = request.COOKIES.get('correo')
+        query = turista.objects.filter(correo =  correo_user)
+
+        template = loader.get_template('usuario/perfil.html')
+        context = {'query_user': query}
+        return HttpResponse(template.render(context, request))
+    
+        
+    
+    else:
+        return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('/login/')
+
+def prueba(request):
+    if request.COOKIES.get('token'):
+        correo_user = request.COOKIES.get('correo')
+        query = turista.objects.filter(correo =  correo_user)
+
+        template = loader.get_template('usuario/perfil.html')
+        context = {'query_user': query}
+        return HttpResponse(template.render(context, request))
+    
+        
+    
+    else:
+        return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('/login/')
 
 def logout(request):
     if request.COOKIES.get('token'):
         response = render(request, 'Base/index.html')
         response.delete_cookie('token')
+        response.delete_cookie('correo')
         return response
     else:
-        return render(request,'Base/index.html')
+        return HttpResponseRedirect('/')
 
-    return render(request,'Base/index.html')
+    return HttpResponseRedirect('/')

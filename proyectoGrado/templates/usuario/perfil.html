@@ -6,4 +6,15 @@
 {% endblock %}
 <!-- aqui va el contenido del acerca de -->
 {% block content %}
+
+
+
+        {% for obj in  query_user %}
+        
+        <ul><li>{{obj.correo}}</li></ul>
+        <h1 >{{obj.correo}}</h1>
+        {% endfor %}
+
+
+        
 {% endblock %}
