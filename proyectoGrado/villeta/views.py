@@ -115,32 +115,34 @@ def view_404(request,*arg,**kwargs):
 def perfil(request):
     if request.COOKIES.get('token'):
         correo_user = request.COOKIES.get('correo')
-        query = turista.objects.filter(correo =  correo_user)
+        if request.method == 'POST':
+            if request.POST.get('nombre_user') and request.POST.get('Apellido_user') and request.POST.get('Correo_user') and request.POST.get('Telefono_user') and request.POST.get('Edad_user') and request.POST.get('Estado_Civil'):
+                
+                tu=turista.objects.get(correo=correo_user)
+                tu.nombre = request.POST.get('nombre_user')
+                tu.apellido = request.POST.get('Apellido_user')
+                tu.correo = request.POST.get('Correo_user')
+                tu.telefono = request.POST.get('Telefono_user')
+                tu.edad = request.POST.get('Edad_user')
+                tu.estado_Civil = request.POST.get('Estado_Civil')
+                
+                tu.save()
 
-        template = loader.get_template('usuario/perfil.html')
-        context = {'query_user': query}
-        return HttpResponse(template.render(context, request))
-    
+                query = turista.objects.filter(correo =  correo_user)
+                mensaje = 'Usuario actualizado con exito'
+                return render(request,'usuario/perfil.html',{'query_user': query, 'message': mensaje})
+            else:
+                return render(request,'usuario/perfil.html',{})
+        else:
+            
+            query = turista.objects.filter(correo =  correo_user)
+            return render(request,'usuario/perfil.html',{'query_user': query})
         
-    
     else:
         return HttpResponseRedirect('/login/')
     return HttpResponseRedirect('/login/')
 
-def prueba(request):
-    if request.COOKIES.get('token'):
-        correo_user = request.COOKIES.get('correo')
-        query = turista.objects.filter(correo =  correo_user)
 
-        template = loader.get_template('usuario/perfil.html')
-        context = {'query_user': query}
-        return HttpResponse(template.render(context, request))
-    
-        
-    
-    else:
-        return HttpResponseRedirect('/login/')
-    return HttpResponseRedirect('/login/')
 
 def logout(request):
     if request.COOKIES.get('token'):

@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^perfil/', perfil),
     url(r'^usuarios/',turista_user),
     url(r'^logout/',logout),
-    url(r'^prueba/',prueba),
+   
 ]

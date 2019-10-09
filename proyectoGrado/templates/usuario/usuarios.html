@@ -43,7 +43,12 @@
     
         <div class="superior"><img src="{% static 'Base/img/top.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
         <div class="inferior"><img src="{% static 'Base/img/bottom.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
-       
+        <main class="main">
+            <di class="container">
+                    {% block content %} 
+                    {% endblock %}
+            </di>
+    </main>
 </body>
 
 </html>
