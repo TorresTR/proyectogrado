@@ -1,25 +1,50 @@
-<!-- extiende de index_base.html todo la personalizacion de base -->
-{% extends 'Base/index_base.html'%}
-<!-- se edita el titulo, de la paguina web  -->
+{% extends 'administrador/admon_base.html'%}
+
 {% block title %}
-<title>Contactenos</title>
+<title>Proveedores</title>
 {% endblock %}
-<!-- aqui va el contenido del contactenos -->
+
 {% block content %}
 
-<script type="text/javascript">
+<script>
 
-$(document).ready(function() {
-  window.setTimeout(function() {
-    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-        $(this).remove(); 
-    });
-}, 5000);
-});
-
-</script>
-
-
+    var endpoint = '/api/proveedor/data/admon/'
+        
+    
+    $.ajax({
+            method:"GET",
+            url: endpoint,
+            success: function(data){
+                console.log(data.proveedor.length)
+                cargar(data)
+            },
+            error:function(error_data){
+                console.log("error"),
+                console.log(error_data)
+            }
+    })
+    
+    function cargar(data){
+      $("#cuerpo").html("");
+          for(var i=0; i<data.proveedor.length; i++){
+            var tr = `<tr>
+              <td style="text-align: center;">`+data.proveedor[i].nit+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].empresa+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].capacidad+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].razon_social+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].municipio+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].tipo_servicio+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].direccion+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].correo+`</td>
+              <td style="text-align: center;">`+data.proveedor[i].imagen+`</td>
+            </tr>`;
+      $("#cuerpo").append(tr)
+    
+    
+    }
+    }
+    </script>
+    
     <style type="text/css">
     
         .centrar{
@@ -28,9 +53,9 @@ $(document).ready(function() {
             top:50%;
             left:50%;
             /*determinamos una anchura*/
-            width:500px;
+            width:1000px;
             /*indicamos que el margen izquierdo, es la mitad de la anchura*/
-            margin-left:-250px;
+            margin-left:-500px;
             /*determinamos una altura*/
             height:560px;
             /*indicamos que el margen superior, es la mitad de la altura*/
@@ -113,80 +138,53 @@ $(document).ready(function() {
       }
     }
     
-
     .alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-  opacity: 1;
-  transition: opacity 0.6s;
-  margin-bottom: 15px;
-  
-}
-.alert.success {background-color: #4CAF50;}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      margin-bottom: 15px;
+      
+    }
+    .alert.success {background-color: #4CAF50;}
     
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .closebtn:hover {
+      color: black;
+    }
     </style>
-
-
-<div class="centrar">
-  {% if message %}
-  <label class="alert">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        {{message}}  
-  </label>
-{% endif %}
-
-{% if message_succes %}
-    <label class="alert success">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      {{message_succes}}
-      </label>
-{% endif %}
-<!--   registro de contactenos   -->  
-<div class="container_table" style="display: block;" id="contactenos_table">
-        <form  method="POST">
+    
+    
+    
+            <table id="Tabla" class="table table-striped">
+                <thead>
+                  <th style="text-align: center;">Nit</th>
+                  <th style="text-align: center;">Empresa</th>
+                  <th style="text-align: center;">Capacidad</th>
+                  <th style="text-align: center;">Razon Social</th>
+                  <th style="text-align: center;">Municipio</th>
+                  <th style="text-align: center;">Tipo Servicio</th>
+                  <th style="text-align: center;">Direccion</th>
+                  <th style="text-align: center;">Telefono</th>
+                  <th style="text-align: center;">Correo</th>
+                  <th style="text-align: center;">Imagen</th>
+                </thead>
+                <tbody id="cuerpo">
+                </tbody>
+            </table>
             
-            {% csrf_token %}
-                  <div class="row">
-                        <div class="col-25">
-                          <label for="lcorreo_contac">Correo:</label>
-                        </div>
-                        <div class="col-75">
-                          <input type="text" id="lcorreo_contac" name="Correo_user_contac" placeholder="Ingrese su Correo.." required="True">
-                        </div>
-                  </div>
-                 
-                  <div class="row">
-                    <div class="col-25">
-                      <label for="lsugerencia">Sugerencia:</label>
-                    </div>
-                    <div class="col-75">
-                      <textarea type="text" id="lsugerencia" name="sugerencia_user_contac" placeholder="Ingrese su sugerencia.." required="True"></textarea>
-                    </div>
-              </div>
-             
-                  
-                 
-                  <div class="row">
-                    <input type="submit" value="Enviar Sugerencia">
-                  </div>
-        </form>
-     </div>
+    
 
-    </div>
+
 {% endblock %}

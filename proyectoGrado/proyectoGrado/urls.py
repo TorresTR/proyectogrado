@@ -30,5 +30,13 @@ urlpatterns = [
     url(r'^registrarse/', user_views.registrarse, name='registrarse'),
     url(r'^perfil/', include('villeta.urls')),
     url(r'^usuarios/', include('villeta.urls')),
+    url(r'^admon/', include('villeta.urls')),
+    url(r'^perfil_admin/', include('villeta.urls')),
+    url(r'^proveedores_registrados/', include('villeta.urls')),
+    url(r'^recomendaciones/', include('villeta.urls')),
+    url(r'^usuarios_registrados/', include('villeta.urls')),
+    url(r'^api/chart/data/$', user_views.chartData.as_view()),
+    url(r'^api/user/data/admon/$', user_views.userdataadmin.as_view()),
+    url(r'^api/proveedor/data/admon/$', user_views.proveedorAdmin.as_view()),
     url(r'^logout/', user_views.logout, name='logout'),
 ]

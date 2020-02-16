@@ -9,6 +9,14 @@
 <script type="text/javascript">
 
 
+$(document).ready(function() {
+  window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+});
+
 
 function cambio(){
     var cosa;
@@ -126,17 +134,56 @@ input[type=submit]:hover {
   }
 }
 
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  
+}
+.alert.success {background-color: #4CAF50;}
 
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
 </style>
+
 <div class="centrar">
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{message}}</div>
-    {% endfor %}
-  {% endif %}
+ 
 
   {{ form }}
     <!--   opciones  -->
+  
+    {% if message %}
+      <label class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{message}}  
+      </label>
+    {% endif %}
+    
+    {% if message_succes %}
+        <label class="alert success">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{message_succes}}
+          </label>
+    {% endif %}
+   
+    
+    
+  
 <div class="container_table" >
     <h4 style="text-align: center;">Seleccione una opcion de registro</h4>
     <form name="formularioslect" action="#">
@@ -172,7 +219,7 @@ input[type=submit]:hover {
                           <label for="lcorreo">Correo:</label>
                         </div>
                         <div class="col-75">
-                          <input type="text" id="lcorreo" name="Correo_user" placeholder="Ingrese su Correo.." required="True">
+                          <input type="email" id="lcorreo" name="Correo_user" placeholder="Ingrese su Correo.." required="True">
                         </div>
                   </div>
                   <div class="row">
@@ -214,7 +261,7 @@ input[type=submit]:hover {
                   </div>
                   
                   <div class="row">
-                    <input type="submit" value="Registrarse">
+                    <input type="submit" type="reset" value="Registrarse">
                   </div>
         </form>
      </div>
@@ -227,7 +274,23 @@ input[type=submit]:hover {
                           <label for="lnit">NIT:</label>
                         </div>
                         <div class="col-75">
-                          <input type="text" id="lnit" name="lnit" placeholder="Ingrese su NIT..">
+                          <input type="text" id="lnit" name="lnit" placeholder="Ingrese su NIT.." required="True">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-25">
+                          <label for="empre">Empresa:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="empre" name="empre" placeholder="Ingrese Nombre de su empresa.." required="True">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-25">
+                          <label for="capac">Capacidad:</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="capac" name="capac" placeholder="Ingrese Nombre de su Capacidad.." required="True">
                         </div>
                       </div>
                       <div class="row">
@@ -235,7 +298,7 @@ input[type=submit]:hover {
                           <label for="lrazonsocial">Razon Social:</label>
                         </div>
                         <div class="col-75">
-                          <input type="text" id="lrazonsocial" name="lrazonsocial" placeholder="Ingrese su Razon Social..">
+                          <input type="text" id="lrazonsocial" name="lrazonsocial" placeholder="Ingrese su Razon Social.." required="True">
                         </div>
                       </div>
                       <div class="row">
@@ -243,7 +306,7 @@ input[type=submit]:hover {
                               <label for="lMunicipio">Municipio:</label>
                             </div>
                             <div class="col-75">
-                              <input type="text" id="lMunicipio" name="lMunicipio" placeholder="Ingrese su Municipio..">
+                              <input type="text" id="lMunicipio" name="lMunicipio" placeholder="Ingrese su Municipio.." required="True">
                             </div>
                        </div>
                        <div class="row">
@@ -251,7 +314,7 @@ input[type=submit]:hover {
                               <label for="ltipo_servicio">Tipo de Servicio:</label>
                             </div>
                             <div class="col-75">
-                              <input type="text" id="ltipo_servicio" name="ltipo_servicio" placeholder="Ingrese su Tipo de servicio..">
+                              <input type="text" id="ltipo_servicio" name="ltipo_servicio" placeholder="Ingrese su Tipo de servicio.." required="True">
                             </div>
                        </div>
                        <div class="row">
@@ -259,7 +322,7 @@ input[type=submit]:hover {
                               <label for="lDirección">Dirección:</label>
                             </div>
                             <div class="col-75">
-                              <input type="text" id="lDirección" name="lDirección" placeholder="Ingrese su Tipo de Dirección..">
+                              <input type="text" id="lDirección" name="lDirección" placeholder="Ingrese su Dirección.." required="True">
                             </div>
                        </div>
                        <div class="row">
@@ -267,7 +330,7 @@ input[type=submit]:hover {
                               <label for="lTelefono">Telefono:</label>
                             </div>
                             <div class="col-75">
-                              <input type="text" id="lTelefono" name="lTelefono" placeholder="Ingrese su Tipo de Telefono..">
+                              <input type="text" id="lTelefono" name="lTelefono" placeholder="Ingrese su  Telefono.." required="True">
                             </div>
                        </div>
                        <div class="row">
@@ -275,7 +338,7 @@ input[type=submit]:hover {
                               <label for="lCorreo">Correo:</label>
                             </div>
                             <div class="col-75">
-                              <input type="text" id="lCorreo" name="lCorreo" placeholder="Ingrese su Tipo de Correo..">
+                              <input type="email" id="lCorreo" name="lCorreo" placeholder="Ingrese su Correo.." required="True">
                             </div>
                        </div>
                        <div class="row">
@@ -283,12 +346,12 @@ input[type=submit]:hover {
                               <label for="lcontrase">Contraseña:</label>
                             </div>
                             <div class="col-75">
-                              <input type="password" id="lcontrase" name="lcontrase" placeholder="Ingrese su Tipo de Contraseña..">
+                              <input type="password" id="lcontrase" name="lcontrase" placeholder="Ingrese su Contraseña.." required="True">
                             </div>
                        </div>
                       
                       <div class="row">
-                        <input type="submit" value="Registrarse">
+                        <input type="submit" type="reset" value="Registrarse" >
                       </div>
             </form>
       </div>

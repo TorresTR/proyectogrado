@@ -1,22 +1,48 @@
-<!-- extiende de index_base.html todo la personalizacion de base -->
-{% extends 'Base/index_base.html'%}
-<!-- se edita el titulo, de la paguina web  -->
+{% extends 'administrador/admon_base.html'%}
+
 {% block title %}
-<title>Login</title>
+<title>Usuarios</title>
 {% endblock %}
-<!-- aqui va el contenido del login -->
+
 {% block content %}
 
 <script>
-$(document).ready(function() {
-  window.setTimeout(function() {
-    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-        $(this).remove(); 
-    });
-}, 5000);
-});
+
+var endpoint = '/api/user/data/admon/'
+    
+
+$.ajax({
+        method:"GET",
+        url: endpoint,
+        success: function(data){
+            console.log(data.usuarios.length)
+            cargar(data)
+        },
+        error:function(error_data){
+            console.log("error"),
+            console.log(error_data)
+        }
+})
+
+function cargar(data){
+  $("#cuerpo").html("");
+      for(var i=0; i<data.usuarios.length; i++){
+        var tr = `<tr>
+          <td>`+data.usuarios[i].nombre+`</td>
+          <td>`+data.usuarios[i].apellido+`</td>
+          <td>`+data.usuarios[i].correo+`</td>
+          <td>`+data.usuarios[i].telefono+`</td>
+          <td>`+data.usuarios[i].edad+`</td>
+          <td>`+data.usuarios[i].estado_Civil+`</td>
+          <td>`+data.usuarios[i].gustos+`</td>
+          <td>`+data.usuarios[i].limitaciones+`</td>
+          <td>`+data.usuarios[i].ocupacion+`</td>
+        </tr>`;
+  $("#cuerpo").append(tr)
 
 
+}
+}
 </script>
 
 <style type="text/css">
@@ -27,9 +53,9 @@ $(document).ready(function() {
 		top:50%;
 		left:50%;
 		/*determinamos una anchura*/
-		width:500px;
+		width:1000px;
 		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
-		margin-left:-250px;
+		margin-left:-500px;
 		/*determinamos una altura*/
 		height:560px;
 		/*indicamos que el margen superior, es la mitad de la altura*/
@@ -48,7 +74,7 @@ $(document).ready(function() {
   box-sizing: border-box;
 }
 
-input[type=email], select, textarea, input[type=password] {
+input[type=email], select, textarea, input[type=password], input[type=text] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -140,44 +166,27 @@ input[type=submit]:hover {
 </style>
 
 
-
- 
-
 <div class="centrar">
-  {% if message %}
-  <label class="alert">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        {{message}}  
-  </label>
-  {% endif %}   
-<div class="container_table">
-        <form  method="POST">
-            {% csrf_token %}
-            
-          <div class="row">
-            <div class="col-25">
-              <label for="fname">Correo:</label>
-            </div>
-            <div class="col-75">
-              <input type="email" id="fname" name="N_correo" placeholder="Correo.." required="True">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-25">
-              <label for="lpass">Contraseña:</label>
-            </div>
-            <div class="col-75">
-              <input type="password" id="lpass" name="N_contrasena" placeholder="Contraseña.." required="True">
-            </div>
-          </div>
-          <div class="row">
-                <a href="#" style="color: beige; ">¿Olvido su contraseña?</a>
-              </div>
-          <div class="row">
-            <input type="submit" value="Ingresar">
-          </div>
-        </form>
-      </div>
+    <div class="container_table">
+        <table id="Tabla" class="table table-striped">
+            <thead>
+              <th style="text-align: center;">Nombre</th>
+              <th style="text-align: center;">Apellido</th>
+              <th style="text-align: center;">Correo</th>
+              <th style="text-align: center;">Telefono</th>
+              <th style="text-align: center;">Edad</th>
+              <th style="text-align: center;">Estado Civil</th>
+              <th style="text-align: center;">Gustos</th>
+              <th style="text-align: center;">Limitaciones</th>
+              <th style="text-align: center;">Ocupacion</th>
+            </thead>
+            <tbody id="cuerpo">
+            </tbody>
+        </table>
+        
+
     </div>
-   
+</div>
+
+
 {% endblock %}

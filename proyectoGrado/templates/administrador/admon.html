@@ -1,12 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>soy un admin</h1>
-</body>
-</html>
+{% extends 'administrador/admon_base.html'%}
+
+{% block title %}
+<title>Bienvenido :: Administrador</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="centrar">
+    <div class="container_table">
+        <div>
+            <canvas id="myChart" width="100" height="100"></canvas>
+        </div>
+        
+
+    </div> 
+</div>
+<!-- Scripts de la paguina-->
+<style type="text/css">
+
+    .centrar{
+		position: absolute;
+		/*nos posicionamos en el centro del navegador*/
+		top:50%;
+		left:50%;
+		/*determinamos una anchura*/
+		width:1000px;
+		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+		margin-left:-500px;
+		/*determinamos una altura*/
+		height:560px;
+		/*indicamos que el margen superior, es la mitad de la altura*/
+		margin-top:-150px;
+     
+        padding:5px;
+        
+        background: -moz-linear-gradient(top, rgba(69,72,77,0) 62%, rgba(69,72,77,0) 63%, rgba(69,72,77,0) 69%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(69,72,77,0) 62%,rgba(69,72,77,0) 63%,rgba(69,72,77,0) 69%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+    }
+    
+    * {
+  box-sizing: border-box;
+}
+
+
+
+.container_table {
+  border-radius: 5px;
+  background: -moz-linear-gradient(top, rgba(69,72,77,0.6) 60%, rgba(69,72,77,0.62) 63%, rgba(69,72,77,0.66) 69%, rgba(0,0,0,0.89) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(69,72,77,0.6) 60%,rgba(69,72,77,0.62) 63%,rgba(69,72,77,0.66) 69%,rgba(0,0,0,0.89) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9945484d', endColorstr='#e3000000',GradientType=0 ); /* IE6-9 */
+
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+
+</style>
+
+<script>
+
+    var endpoint = '/api/chart/data'
+    var defaultdata = []
+    var labels = []
+
+    $.ajax({
+        method:"GET",
+        url: endpoint,
+        success: function(data){
+            labels = data.labels
+            defaultdata = data.default
+            setchart()
+        },
+        error:function(error_data){
+            console.log("error"),
+            console.log(error_data)
+        }
+    })
+
+function setchart(){
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Numero de Usuarios',
+                data:defaultdata ,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+    
+    </script>
+
+{% endblock %}

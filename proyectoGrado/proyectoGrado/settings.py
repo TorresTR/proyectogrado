@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'villeta.apps.VilletaConfig'
+    'villeta.apps.VilletaConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

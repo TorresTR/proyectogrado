@@ -19,6 +19,8 @@ class turista(models.Model):
 class proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
     nit = models.TextField(max_length= 200)
+    empresa = models.TextField(max_length= 200)
+    capacidad = models.TextField(max_length= 200)
     razon_social = models.TextField(max_length= 100) 
     municipio = models.TextField(max_length= 60)
     tipo_servicio = models.TextField(max_length= 190)

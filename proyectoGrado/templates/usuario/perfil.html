@@ -7,6 +7,18 @@
 <!-- aqui va el contenido del acerca de -->
 {% block content %}
        
+
+  <script>
+
+  $(document).ready(function() {
+  window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+});
+
+  </script>
         <style type="text/css">
 
                 .centrar{
@@ -101,11 +113,52 @@
             }
             
             
+            .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  
+}
+.alert.success {background-color: #4CAF50;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
             </style>
+
+
+
             <div class="centrar">
               {% if query_user %}
 
-              <label >{{message}}</label>
+              {% if message %}
+              <label class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}  
+              </label>
+            {% endif %}
+            
+            {% if message_succes %}
+                <label class="alert success">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  {{message_succes}}
+                  </label>
+            {% endif %}
             <!--   Editar perfil   -->  
             <div class="container_table" style="display: block;" id="turista_reg">
                     <form  method="POST">
@@ -170,7 +223,10 @@
                     </form>
                  </div>
                 {% else %}
-                <label >No se ah cargado la informacion de tu perfil!!!</label>
+                <label class="alert">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  No se ah cargado la informacion de tu perfil!!!
+                </label>
                 {% endif%}
                 </div>
             
