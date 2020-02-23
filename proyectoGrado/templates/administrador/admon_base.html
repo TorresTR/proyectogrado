@@ -1,60 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="es">
+  <!-- head de la paguina-->
 
+  <head>
+    <!-- Carga los meta de la paguina-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- carga los metodos css, js etc.. de la carpeta static -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'Base/css/index_css.css' %}" type="text/css">
-    <link rel="icon" href="{% static 'Base/img/logo.png' %}" type="image/png">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static 'Base/Js/index_js.js' %}"></script>
-    <script type="text/javascript" src="{% static 'Base/Js/jssor.slider-27.5.0.min.js' %}"></script>
+    <link
+      rel="stylesheet"
+      href="{% static 'Base/css/index_css.css' %}"
+      type="text/css"
+    />
+    <link rel="icon" href="{% static 'Base/img/logo.png' %}" type="image/png" />
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'Base/Js/index_js.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'Base/Js/jssor.slider-27.5.0.min.js' %}"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/static/Base/Js/datatables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="/static/Base/Js/datatables.min.js"
+    ></script>
+    <!-- Fin cargar estatic-->
+
+    <!-- Inicio el bloque del titulo para personalizar-->
     {% block title %}
     <title>Administrador</title>
     {% endblock %}
-</head>
+    <!-- fin bloque titulo-->
+  </head>
+  <!-- Fin head-->
 
-<body>
+  <!-- start body-->
 
-        <header class="header">
-                <div class="container logo-nav-container">
-        
-                    <div class="logo"><a href="/admon/"><img src="{% static 'Base/img/logo.png' %}" onsub width="60" height="60"></a></div>
-                    <nav class="navigation">
-                        <ul>
-                                <li><a href="/perfil_admin/">Perfil</a></li>
-                                <li><a href="/usuarios_registrados/">Usuarios</a></li>
-                                <li><a href="/proveedores_registrados/">Proveedores</a></li>  
-                                <li><a href="/recomendaciones/">Recomendaciones</a></li>
-                                <li><a href="{% url 'logout'%}">Logout</a></li>
-                        </ul>
-                        
-                    </nav>
-        
-                </div>
-        
-            </header>
-    
-        <div class="superior"><img src="{% static 'Base/img/top.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
-        <div class="inferior"><img src="{% static 'Base/img/bottom.png' %}" style="border-radius: 3px" width="100%" height="auto"></div>
-        <main class="main">
-            <di class="container">
-                    {% block content %} 
-                    {% endblock %}
-            </di>
+  <body>
+    <header class="header">
+      <div class="container logo-nav-container">
+        <div class="logo">
+          <a href="/admon/"
+            ><img
+              src="{% static 'Base/img/logo.png' %}"
+              onsub
+              width="60"
+              height="60"
+          /></a>
+        </div>
+        <nav class="navigation">
+          <ul>
+            <li><a href="/perfil_admin/">Perfil</a></li>
+            <li><a href="/usuarios_registrados/">Usuarios</a></li>
+            <li><a href="/proveedores_registrados/">Proveedores</a></li>
+            <li><a href="/recomendaciones/">Recomendaciones</a></li>
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="superior">
+      <img
+        src="{% static 'Base/img/top.png' %}"
+        style="border-radius: 3px"
+        width="100%"
+        height="auto"
+      />
+    </div>
+
+    <div class="inferior">
+      <img
+        src="{% static 'Base/img/bottom.png' %}"
+        style="border-radius: 3px"
+        width="100%"
+        height="auto"
+      />
+    </div>
+
+    <main class="main">
+      <di class="container">
+        {% block content %} {% endblock %}
+      </di>
     </main>
-</body>
-
+  </body>
 </html>
